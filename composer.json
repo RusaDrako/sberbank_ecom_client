@@ -3,6 +3,7 @@
   "description": "PHP client for ECOM Sberbank ( https://ecommerce.sberbank.ru/ )",
   "type": "library",
   "license": "MIT",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Petukhov Leonid",
@@ -12,7 +13,6 @@
   "require": {
     "php": ">=7.0.0"
   },
-  "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
       "RusaDrako\\sberbank_ecom_client\\": "src/"

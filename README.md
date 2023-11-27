@@ -1,9 +1,9 @@
 # sberbank_ecom_client
 PHP client for Sberbank ( https://ecommerce.sberbank.ru )
 
-[![Latest Stable Version](https://poser.pugx.org/rusadrako/sberbank_ecom_client/v/stable)](https://packagist.org/packages/rusadrako/sberbank_ecom_client)
-[![Total Downloads](https://poser.pugx.org/rusadrako/sberbank_ecom_client/downloads)](https://packagist.org/packages/rusadrako/sberbank_ecom_client/stats)
-[![License](https://poser.pugx.org/rusadrako/sberbank_ecom_client/license)](./LICENSE)
+[![Version](http://poser.pugx.org/rusadrako/sberbank_ecom_client/version)](https://packagist.org/packages/rusadrako/sberbank_ecom_client)
+[![Total Downloads](http://poser.pugx.org/rusadrako/sberbank_ecom_client/downloads)](https://packagist.org/packages/rusadrako/sberbank_ecom_client/stats)
+[![License](http://poser.pugx.org/rusadrako/sberbank_ecom_client/license)](./LICENSE)
 
 
 ## Документация
