@@ -6,13 +6,18 @@ namespace RusaDrako\sberbank_ecom_client;
  */
 class Client{
 
+	/** Боевой хост платёжного шлюза */
 	const API_HOST = 'https://ecommerce.sberbank.ru/';
+	/** Тестовый хост платёжного шлюза */
 	const API_HOST_TEST = 'https://ecomtest.sberbank.ru/';
 
-	private $api_host;
-	private $api_service_root = 'ecomm/gw/partner/api/v1/';
+	/** @var string Активный хост платёжного шлюза */
+	protected $api_host;
+	/** @var string Корневой путь платёжного шлюза */
+	protected $api_service_root = 'ecomm/gw/partner/api/v1/';
 
-	private $options = [
+	/** @var array Базовые параметры подключения */
+	protected $options = [
 		'userName' => null, // Логин Клиента
 		'password' => null, // Пароль Клиента
 	];
@@ -98,9 +103,7 @@ class Client{
 		}
 		# Закрываем соединение
 		curl_close($curl);
-		# Декодируем результат
-		$arr_result = \json_decode($result, true);
-		return $arr_result;
+		return $result;
 	}
 
 }
