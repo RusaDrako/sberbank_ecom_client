@@ -1,8 +1,6 @@
 <?php
 namespace RusaDrako\sberbank_ecom_client;
 
-use mysql_xdevapi\Exception;
-
 /**
  * Объект ответа
  */
