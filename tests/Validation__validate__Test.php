@@ -7,7 +7,7 @@ use RusaDrako\sberbank_ecom_client\Validation;
 require_once(__DIR__ . '/../src/autoload.php');
 
 /**
- * @author Петухов Леонид <l.petuhov@okonti.ru>
+ * @author Петухов Леонид <f182@rambler.ru>
  */
 class Validation__validate__Test extends TestCase {
 
