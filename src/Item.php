@@ -6,27 +6,32 @@ namespace RusaDrako\sberbank_ecom_client;
  */
 class Item{
 	/** @var Client Объект клиента */
-	public $_parent;
+	protected $_parent;
 	/** @var array Параметры элемента */
-	protected $options = [];
+	protected $_options = [];
 
 	/** */
 	public function __debugInfo(){
-		return $this->options;
+		return $this->_options;
+	}
+
+	/** */
+	public function __construct(array $arrOptions){
+		$this->_options = $arrOptions;
 	}
 
 	/** */
 	public function __get($name){
-		if (array_key_exists($name, $this->options)) {
-			return $this->options[$name];
+		if (array_key_exists($name, $this->_options)) {
+			return $this->_options[$name];
 		}
 		throw new ExceptionItem("Свойство '{$name}' не задано");
 	}
 
 	/** */
 	public function __set($name, $value){
-		if (array_key_exists($name, $this->options)) {
-			$this->options[$name] = $value;
+		if (array_key_exists($name, $this->_options)) {
+			$this->_options[$name] = $value;
 			return;
 		}
 		throw new ExceptionItem("Свойство '{$name}' не задано");
