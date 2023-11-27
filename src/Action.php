@@ -34,15 +34,15 @@ class Action extends Item{
 	public function __construct(string $actionName){
 		$this->actionName = $actionName;
 		$this->setOption = Options::getActionOptions($actionName);
-		$this->options = array_fill_keys(array_keys($this->setOption), null);
 		$this->isFree = !(bool)$this->setOption;
+		parent::__construct(\array_fill_keys(array_keys($this->setOption), null));
 	}
 
 	/** */
 	public function __get($name){
 		// Если свободное дейсмтвие
 		if ($this->isFree) {
-			return $this->options[$name] ?? null;
+			return $this->_options[$name] ?? null;
 		}
 		parent::__get($name);
 	}
@@ -51,7 +51,7 @@ class Action extends Item{
 	public function __set($name, $value){
 		// Если свободное дейсмтвие
 		if ($this->isFree) {
-			$this->options[$name] = $value;
+			$this->_options[$name] = $value;
 			return;
 		}
 		parent::__set($name, $value);
@@ -71,22 +71,22 @@ class Action extends Item{
 	/** Выполняет валидацию, подготовку данных и запрос */
 	public function execute(){
 		if ($this->isFree) {
-			$this->options = array_merge($this->options, $this->_parent->getOptions());
-			$this->optionsForJSON = $this->options;
+			$this->_options = array_merge($this->_options, $this->_parent->getOptions());
+			$this->optionsForJSON = $this->_options;
 		} else {
-			$this->options = Client::optionsMerge($this->options, $this->_parent->getOptions());
+			$this->_options = Client::optionsMerge($this->_options, $this->_parent->getOptions());
 			$this->validateOptions();
 			$this->formatOptions();
 		}
-		$result = $this->_parent->execute($this);
-		return new Response($result);
+		$json_result = $this->_parent->execute($this);
+		return new Response($json_result);
 	}
 
 	/** Выполняет валидацию данных */
 	public function validateOptions() {
 		$this->optionsForJSON = [];
 		foreach($this->setOption as $k => $v) {
-			$value = $this->options[$k];
+			$value = $this->_options[$k];
 			Validation::validate($k, $value, $v);
 			if ($value !== null) {
 				$this->optionsForJSON[$k] = $value;
