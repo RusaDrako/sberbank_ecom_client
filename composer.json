@@ -7,7 +7,7 @@
   "authors": [
     {
       "name": "Petukhov Leonid",
-      "email": "f182@rambler.ru"
+      "email": "rusadrako@yandex.ru"
     }
   ],
   "require": {
@@ -16,7 +16,10 @@
   "autoload": {
     "psr-4": {
       "RusaDrako\\sberbank_ecom_client\\": "src/"
-    }
+    },
+    "files": [
+      "src/autoload.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
