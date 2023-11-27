@@ -1,9 +1,9 @@
 <?php
-
 namespace RusaDrako\sberbank_ecom_client;
 
 $arr_load = [
 	'Options.php',
+	'OrderStatus.php',
 	'Item.php',
 	'Currency.php',
 	'Language.php',
