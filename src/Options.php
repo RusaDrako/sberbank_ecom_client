@@ -135,9 +135,24 @@ class Options{
 		// Регистрация заказа для двухстадийного сценария
 		'registerPreAuth.do' => [],
 		// Завершение двухстадийного сценария
-		'deposit.do' => [],
+		'deposit.do' => [
+			'userName' => Options::SET_userName,
+			'password' => Options::SET_password,
+			'orderId' => Options::SET_orderId,
+			'amount' => Options::SET_amount,
+			'language' => Options::SET_language,
+			'orderBundle' => Options::SET_orderBundle,
+		],
 		// Отмена заказа
-		'reverse.do' => [],
+		'reverse.do' => [
+			'userName' => Options::SET_userName,
+			'password' => Options::SET_password,
+			'orderId' => Options::SET_orderId,
+			'amount' => [Options::SET_TYPE => Options::TYPE_INT, Options::SET_REQUIRED => 1, Options::SET_MIN => 0, Options::SET_MAX => 999999999999,],
+			'language' => Options::SET_language,
+			'jsonParams' => Options::SET_jsonParams,
+			'orderBundle' => Options::SET_orderBundle,
+		],
 		// Возврат средств Плательщика
 		'refund.do' => [
 			'userName' => Options::SET_userName,
@@ -156,7 +171,18 @@ class Options{
 			'language' => Options::SET_language,
 		],
 		// Отмена заказа до начала платежа
-		'decline.do' => [],
+		'decline.do' => [
+			'userName' => Options::SET_userName,
+			'password' => Options::SET_password,
+			// Логин дочернего Клиента (если используется)
+			'merchantLogin' => [Options::SET_TYPE => Options::TYPE_STR, Options::SET_MIN => 1, Options::SET_MAX => 30, Options::SET_REG_EXP => '^[A-Za-z0-9-_ ]+$'],
+			// Уникальный номер заказа в Платёжном шлюзе
+			'orderId' => [Options::SET_TYPE => Options::TYPE_STR, Options::SET_MIN => 36, Options::SET_MAX => 36, Options::SET_REG_EXP => '^[a-f0-9\-]+$',],
+			// Уникальный номер (идентификатор) заказа в системе Клиента
+			'orderNumber' => [Options::SET_TYPE => Options::TYPE_STR, Options::SET_MIN => 1, Options::SET_MAX => 36, Options::SET_REG_EXP => '^[ -~А-Яа-яЁё№]*$'],
+			'language' => Options::SET_language,
+			'jsonParams' => Options::SET_jsonParams,
+		],
 
 		// Проведение оплаты по карте
 		'paymentOrder.do' => [],
