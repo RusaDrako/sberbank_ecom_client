@@ -1,22 +1,31 @@
 # sberbank_ecom_client
 PHP client for Sberbank ( https://ecommerce.sberbank.ru )
 
-[![Build Status](https://app.travis-ci.com/rusadrako/sberbank_ecom_client.svg?branch=master)](https://app.travis-ci.com/github/voronkovich/sberbank-acquiring-client)
-[![Latest Stable Version](https://poser.pugx.org/rusadrako/sberbank_ecom_client/v/stable)](https://packagist.org/packages/voronkovich/sberbank-acquiring-client)
-[![Total Downloads](https://poser.pugx.org/rusadrako/sberbank_ecom_client/downloads)](https://packagist.org/packages/voronkovich/sberbank-acquiring-client/stats)
+[![Latest Stable Version](https://poser.pugx.org/rusadrako/sberbank_ecom_client/v/stable)](https://packagist.org/packages/rusadrako/sberbank_ecom_client)
+[![Total Downloads](https://poser.pugx.org/rusadrako/sberbank_ecom_client/downloads)](https://packagist.org/packages/rusadrako/sberbank_ecom_client/stats)
 [![License](https://poser.pugx.org/rusadrako/sberbank_ecom_client/license)](./LICENSE)
+
 
 ## Документация
 - [API платёжного шлюза Сбербанка (1.0.4)](https://ecomtest.sberbank.ru/doc)
 
-## Installation
 
+## Установка (composer)
 ```sh
 composer require 'rusadrako/sberbank_ecom_client'
 ```
 
-### Client
 
+## Установка (manual)
+- Скачать и распоковать библиотеку.
+- Добавить в код инструкцию:
+```php
+require_once('/sberbank_ecom_client/src/autoload.php')
+```
+
+
+## Класс Client
+Базовый класс Клиента.
 ```php
 use RusaDrako\sberbank_ecom_client\Client;
 $options = [
@@ -26,16 +35,105 @@ $options = [
 ];
 $client = new Client($options);
 ```
+По умолчанию клиент использует тестовый `api_host` => `Client::API_HOST_TEST` ( https://ecomtest.sberbank.ru/ )
 
-### Currency
+Полный набор свойств:
+```php
+use RusaDrako\sberbank_ecom_client\Client;
+$options = [
+    'userName' => '...', // Логин Клиента
+    'password' => '...', // Пароль Клиента
+    'api_host' => Client::API_HOST_TEST, // Хост
+    'timeout' => 10,
+];
+```
 
+#### Метод action()
+Формирует и выполняет действие. Возвращает объект `Response` с результатом запроса.
+```php
+$response = $client->action('register.do', [
+                                               'orderNumber' => 'тест-1',
+                                               'amount' => 10000,
+                                               'returnUrl' => 'http://www.test.test/',
+                                           ]);
+```
+Является краткой формой для:
+```php
+/** @var Action $action */
+$action = $client->getAction('register.do');
+
+$action->orderNumber = 'тест-1';
+$action->amount = 10000;
+$action->returnUrl = 'https://www.mealty.ru/';
+
+/** @var Response $response */
+$response = $action->execute();
+```
+
+#### Метод getAction()
+Возвращает объект `Action` с настройками указанного действия.
+```php
+$action = $client->getAction('register.do');
+```
+
+
+## Класс Action
+Объект действия с его настройками.
+
+#### Метод execute()
+Выполняет запрос действия. Возвращает объект `Response` с результатом запроса.
+```php
+$response = $action->execute();
+```
+
+#### Метод getActionName()
+Возвращает имя действия.
+```php
+$string = $action->getActionName();
+```
+
+#### Метод getOptionsJSON()
+Возвращает JSON запроса действия.
+```php
+$json = $action->getOptionsJSON();
+```
+
+
+## Класс Response
+Объект результата запроса.
+```php
+$response->errorCode;
+$response->errorMessage;
+...
+```
+
+#### Метод getJSON()
+Возвращает результат запроса в формате JSON.
+```php
+$json = $response->getJSON();
+```
+
+#### Метод getArray()
+Возвращает результат запроса в формате Array.
+```php
+$array = $response->getArray();
+```
+
+
+## Класс Currency
 Объект с кодами валют в соответствующем формате.
-
 ```php
 use RusaDrako\sberbank_ecom_client\Currency;
 $currency_code = Currency::RUB;
 ```
 
-### License
+### Класс Language
+Объект с кодами языков в соответствующем формате.
+```php
+use RusaDrako\sberbank_ecom_client\Language;
+$currency_code = Language::RUS;
+```
 
+
+## License
 Copyright (c) Petukhov Leonid. Distributed under the MIT.
