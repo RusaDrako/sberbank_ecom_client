@@ -7,7 +7,7 @@ use RusaDrako\sberbank_ecom_client\Client;
 require_once(__DIR__ . '/../src/autoload.php');
 
 /**
- * @author Петухов Леонид <f182@rambler.ru>
+ * @author Petukhov Leonid <f182@rambler.ru>
  */
 class Client__optionsMerge__Test extends TestCase {
 

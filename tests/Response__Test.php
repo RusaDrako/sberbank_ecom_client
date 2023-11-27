@@ -7,7 +7,7 @@ use RusaDrako\sberbank_ecom_client\Response;
 require_once(__DIR__ . '/../src/autoload.php');
 
 /**
- * @author Петухов Леонид <f182@rambler.ru>
+ * @author Petukhov Leonid <f182@rambler.ru>
  */
 class Response__Test extends TestCase {
 

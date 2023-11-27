@@ -1,11 +1,12 @@
 {
   "name": "rusadrako/sberbank_ecom_client",
   "description": "PHP client for ECOM Sberbank ( https://ecommerce.sberbank.ru/ )",
+  "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "Petukhov Leonid",
-      "email": "rusadrako@yandex.ru"
+      "email": "f182@rambler.ru"
     }
   ],
   "require": {
@@ -19,7 +20,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "custanator\\SberbankEcomAcquiring\\Tests\\": "tests/"
+      "RusaDrako\\sberbank_ecom_client\\Tests\\": "tests/"
     }
   }
 }
