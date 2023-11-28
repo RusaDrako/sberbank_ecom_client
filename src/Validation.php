@@ -14,7 +14,7 @@ class Validation{
 			Options::SET_MIN        => null,
 			Options::SET_MAX        => null,
 			Options::SET_REG_EXP    => null,
-			Options::SET_ENUM       => [],
+			Options::SET_ENUM       => null,
 		];
 		$options = Client::optionsMerge($controlOptions, $options);
 
@@ -29,68 +29,15 @@ class Validation{
 		// Если переменная не назначена
 		if ($value === null) { return true;}
 
-		// Специальные настройки
-		switch($options[Options::SET_TYPE]){
-			// Валюта
-			case Options::TYPE_CUR:
-				if (!Currency::validate($value)) {
-					throw new ExceptionValidation("{$optionName}: Код валюты '{$value}' указан неверно");
-				}
-				return true;
-				break;
-			// Язык
-			case Options::TYPE_LNG:
-				if (!Language::validate($value)) {
-					throw new ExceptionValidation("{$optionName}: Язык '{$value}' указан неверно");
-				}
-				return true;
-				break;
-			// Перечисление
-			case Options::TYPE_ENM:
-				if (!in_array($value, $options[Options::SET_ENUM])) {
-					throw new ExceptionValidation("{$optionName}: Значение '{$value}' отсутствует в перечислении '" . implode('\', \'', $options[Options::SET_ENUM]) . "'");
-				}
-				return true;
-				break;
-			// Перечисление, несколько вариантов
-			case Options::TYPE_ENMS:
-				foreach($value as $v) {
-					if (in_array($v, $options[Options::SET_ENUM])) {
-						throw new ExceptionValidation("{$optionName}: Значение '{$v}' отсутствует в перечислении '" . implode('\', \'', $options[Options::SET_ENUM]) . "'");
-					}
-				}
-				return true;
-				break;
-			// JSON
-			case Options::TYPE_JSON:
-				if (!is_array($value)) {
-					throw new ExceptionValidation("{$optionName}: Параметр должен быть массивом");
-				}
-				if (count($value) < 1) {
-					throw new ExceptionValidation("{$optionName}: Количество элементов меньше 1. Необходимо задать хотябы одит элемент, или не активировать параметр.");
-				}
-				if (count($value) > 99) {
-					throw new ExceptionValidation("{$optionName}: Количество элементов больше 99");
-				}
-				return true;
-				break;
-			// Дата
-			case Options::TYPE_DATE:
-				if (!static::validateDate($value)) {
-					throw new ExceptionValidation("{$optionName}: Формат даты указан неверно' {$value}' -> 'yyyy-MM-ddTHH:mm:ss'");
-				}
-				return true;
-				break;
-		}
-
 		// Обработка по типу
 		switch($options[Options::SET_TYPE]){
 			// Число
 			case Options::TYPE_INT:
-				if (!static::validateMin($value, $options[Options::SET_MIN])) {
+			case Options::TYPE_NUM:
+				if (!static::validateMinNum($value, $options[Options::SET_MIN])) {
 					throw new ExceptionValidation("{$optionName}: Значение '{$value}' меньше ограничения '{$options[Options::SET_MIN]}'");
 				}
-				if (!static::validateMax($value, $options[Options::SET_MAX])) {
+				if (!static::validateMaxNum($value, $options[Options::SET_MAX])) {
 					throw new ExceptionValidation("{$optionName}: Значение '{$value}' больше ограничения '{$options[Options::SET_MAX]}'");
 				}
 				break;
@@ -101,6 +48,15 @@ class Validation{
 				}
 				if (!static::validateMaxStr($value, $options[Options::SET_MAX])) {
 					throw new ExceptionValidation("{$optionName}: Длинна '{$value}' больше {$options[Options::SET_MAX]} символов");
+				}
+				break;
+			// Объект
+			case Options::TYPE_OBJECT:
+				if (!static::validateMinArr($value, $options[Options::SET_MIN])) {
+					throw new ExceptionValidation("{$optionName}: Количество элементов '{$value}' меньше {$options[Options::SET_MIN]}");
+				}
+				if (!static::validateMaxArr($value, $options[Options::SET_MAX])) {
+					throw new ExceptionValidation("{$optionName}: Количество элементов '{$value}' больше {$options[Options::SET_MAX]}");
 				}
 				break;
 		}
@@ -120,23 +76,23 @@ class Validation{
 		return false;
 	}
 
-	/** Проверяет, минимальное значение параметра */
-	public static function validateMin($value, $option){
+	/** Проверяет, минимальное значение параметра (число) */
+	public static function validateMinNum($value, $option){
 		if ($value === null) {return true;}
 		if ($option === null) {return true;}
 		if ($option <= $value) {return true;}
 		return false;
 	}
 
-	/** Проверяет, максимальное значение параметра */
-	public static function validateMax($value, $option){
+	/** Проверяет, максимальное значение параметра (число) */
+	public static function validateMaxNum($value, $option){
 		if ($value === null) {return true;}
 		if ($option === null) {return true;}
 		if ($option >= $value) {return true;}
 		return false;
 	}
 
-	/** Проверяет, минимальное значение параметра */
+	/** Проверяет, минимальное значение параметра (строка) */
 	public static function validateMinStr($value, $option){
 		if ($value === null) {return true;}
 		if ($option === null) {return true;}
@@ -144,11 +100,27 @@ class Validation{
 		return false;
 	}
 
-	/** Проверяет, максимальное значение параметра */
+	/** Проверяет, максимальное значение параметра (строка) */
 	public static function validateMaxStr($value, $option){
 		if ($value === null) {return true;}
 		if ($option === null) {return true;}
 		if ($option >= strlen($value)) {return true;}
+		return false;
+	}
+
+	/** Проверяет, минимальное значение параметра (массив) */
+	public static function validateMinArr($value, $option){
+		if ($value === null) {return true;}
+		if ($option === null) {return true;}
+		if (is_array($value) && $option <= count($value)) {return true;}
+		return false;
+	}
+
+	/** Проверяет, максимальное значение параметра (массив) */
+	public static function validateMaxArr($value, $option){
+		if ($value === null) {return true;}
+		if ($option === null) {return true;}
+		if (is_array($value) && $option >= count($value)) {return true;}
 		return false;
 	}
 

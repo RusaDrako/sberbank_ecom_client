@@ -92,83 +92,83 @@ class Validation__validate__Test extends TestCase {
 	/**
 	 * Проверка на минимальное значение параметра
 	 */
-	public function test__validateMin() {
-		$this->assertTrue(($this->className)::validateMin(-20, null));
-		$this->assertTrue(($this->className)::validateMin(-10, null));
-		$this->assertTrue(($this->className)::validateMin(0, null));
-		$this->assertTrue(($this->className)::validateMin(10, null));
-		$this->assertTrue(($this->className)::validateMin(20, null));
-		$this->assertTrue(($this->className)::validateMin('', null));
-		$this->assertTrue(($this->className)::validateMin('aaa', null));
-		$this->assertTrue(($this->className)::validateMin(null, null));
+	public function test__validateMinNum() {
+		$this->assertTrue(($this->className)::validateMinNum(-20, null));
+		$this->assertTrue(($this->className)::validateMinNum(-10, null));
+		$this->assertTrue(($this->className)::validateMinNum(0, null));
+		$this->assertTrue(($this->className)::validateMinNum(10, null));
+		$this->assertTrue(($this->className)::validateMinNum(20, null));
+		$this->assertTrue(($this->className)::validateMinNum('', null));
+		$this->assertTrue(($this->className)::validateMinNum('aaa', null));
+		$this->assertTrue(($this->className)::validateMinNum(null, null));
 
-		$this->assertFalse(($this->className)::validateMin(-20, -10));
-		$this->assertTrue(($this->className)::validateMin(-10, -10));
-		$this->assertTrue(($this->className)::validateMin(0, -10));
-		$this->assertTrue(($this->className)::validateMin(10, -10));
-		$this->assertTrue(($this->className)::validateMin(20, -10));
-		$this->assertTrue(($this->className)::validateMin('', -10));
-		$this->assertTrue(($this->className)::validateMin('aaa', -10));
-		$this->assertTrue(($this->className)::validateMin(null, -10));
+		$this->assertFalse(($this->className)::validateMinNum(-20, -10));
+		$this->assertTrue(($this->className)::validateMinNum(-10, -10));
+		$this->assertTrue(($this->className)::validateMinNum(0, -10));
+		$this->assertTrue(($this->className)::validateMinNum(10, -10));
+		$this->assertTrue(($this->className)::validateMinNum(20, -10));
+		$this->assertTrue(($this->className)::validateMinNum('', -10));
+		$this->assertTrue(($this->className)::validateMinNum('aaa', -10));
+		$this->assertTrue(($this->className)::validateMinNum(null, -10));
 
-		$this->assertFalse(($this->className)::validateMin(-20, 0));
-		$this->assertFalse(($this->className)::validateMin(-10, 0));
-		$this->assertTrue(($this->className)::validateMin(0, 0));
-		$this->assertTrue(($this->className)::validateMin(10, 0));
-		$this->assertTrue(($this->className)::validateMin(20, 0));
-		$this->assertTrue(($this->className)::validateMin('', 0));
-		$this->assertTrue(($this->className)::validateMin('aaa', 0));
-		$this->assertTrue(($this->className)::validateMin(null, 0));
+		$this->assertFalse(($this->className)::validateMinNum(-20, 0));
+		$this->assertFalse(($this->className)::validateMinNum(-10, 0));
+		$this->assertTrue(($this->className)::validateMinNum(0, 0));
+		$this->assertTrue(($this->className)::validateMinNum(10, 0));
+		$this->assertTrue(($this->className)::validateMinNum(20, 0));
+		$this->assertTrue(($this->className)::validateMinNum('', 0));
+		$this->assertTrue(($this->className)::validateMinNum('aaa', 0));
+		$this->assertTrue(($this->className)::validateMinNum(null, 0));
 
-		$this->assertTrue(($this->className)::validateMin('ccc', 'bbb'));
-		$this->assertTrue(($this->className)::validateMin('bbb', 'bbb'));
-		$this->assertFalse(($this->className)::validateMin('aaa', 'bbb'));
+		$this->assertTrue(($this->className)::validateMinNum('ccc', 'bbb'));
+		$this->assertTrue(($this->className)::validateMinNum('bbb', 'bbb'));
+		$this->assertFalse(($this->className)::validateMinNum('aaa', 'bbb'));
 
-		$this->assertTrue(($this->className)::validateMin(true, true));
-		$this->assertFalse(($this->className)::validateMin(false, true));
-		$this->assertTrue(($this->className)::validateMin(false, false));
-		$this->assertTrue(($this->className)::validateMin(true, false));
+		$this->assertTrue(($this->className)::validateMinNum(true, true));
+		$this->assertFalse(($this->className)::validateMinNum(false, true));
+		$this->assertTrue(($this->className)::validateMinNum(false, false));
+		$this->assertTrue(($this->className)::validateMinNum(true, false));
 	}
 
 	/**
 	 * Проверка на максимальное значение параметра
 	 */
-	public function test__validateMax() {
-		$this->assertTrue(($this->className)::validateMax(-10, null));
-		$this->assertTrue(($this->className)::validateMax(-20, null));
-		$this->assertTrue(($this->className)::validateMax(0, null));
-		$this->assertTrue(($this->className)::validateMax(10, null));
-		$this->assertTrue(($this->className)::validateMax(20, null));
-		$this->assertTrue(($this->className)::validateMax('', null));
-		$this->assertTrue(($this->className)::validateMax('aaa', null));
-		$this->assertTrue(($this->className)::validateMax(null, null));
+	public function test__validateMaxNum() {
+		$this->assertTrue(($this->className)::validateMaxNum(-10, null));
+		$this->assertTrue(($this->className)::validateMaxNum(-20, null));
+		$this->assertTrue(($this->className)::validateMaxNum(0, null));
+		$this->assertTrue(($this->className)::validateMaxNum(10, null));
+		$this->assertTrue(($this->className)::validateMaxNum(20, null));
+		$this->assertTrue(($this->className)::validateMaxNum('', null));
+		$this->assertTrue(($this->className)::validateMaxNum('aaa', null));
+		$this->assertTrue(($this->className)::validateMaxNum(null, null));
 
-		$this->assertTrue(($this->className)::validateMax(-10, 10));
-		$this->assertTrue(($this->className)::validateMax(-20, 10));
-		$this->assertTrue(($this->className)::validateMax(0, 10));
-		$this->assertTrue(($this->className)::validateMax(10, 10));
-		$this->assertFalse(($this->className)::validateMax(20, 10));
-		$this->assertTrue(($this->className)::validateMax('', 10));
-		$this->assertTrue(($this->className)::validateMax('aaa', 10));
-		$this->assertTrue(($this->className)::validateMax(null, 10));
+		$this->assertTrue(($this->className)::validateMaxNum(-10, 10));
+		$this->assertTrue(($this->className)::validateMaxNum(-20, 10));
+		$this->assertTrue(($this->className)::validateMaxNum(0, 10));
+		$this->assertTrue(($this->className)::validateMaxNum(10, 10));
+		$this->assertFalse(($this->className)::validateMaxNum(20, 10));
+		$this->assertTrue(($this->className)::validateMaxNum('', 10));
+		$this->assertTrue(($this->className)::validateMaxNum('aaa', 10));
+		$this->assertTrue(($this->className)::validateMaxNum(null, 10));
 
-		$this->assertTrue(($this->className)::validateMax(-20, 0));
-		$this->assertTrue(($this->className)::validateMax(-10, 0));
-		$this->assertTrue(($this->className)::validateMax(0, 0));
-		$this->assertFalse(($this->className)::validateMax(10, 0));
-		$this->assertFalse(($this->className)::validateMax(20, 0));
-		$this->assertTrue(($this->className)::validateMax('', 0));
-		$this->assertTrue(($this->className)::validateMax('aaa', 0));
-		$this->assertTrue(($this->className)::validateMax(null, 0));
+		$this->assertTrue(($this->className)::validateMaxNum(-20, 0));
+		$this->assertTrue(($this->className)::validateMaxNum(-10, 0));
+		$this->assertTrue(($this->className)::validateMaxNum(0, 0));
+		$this->assertFalse(($this->className)::validateMaxNum(10, 0));
+		$this->assertFalse(($this->className)::validateMaxNum(20, 0));
+		$this->assertTrue(($this->className)::validateMaxNum('', 0));
+		$this->assertTrue(($this->className)::validateMaxNum('aaa', 0));
+		$this->assertTrue(($this->className)::validateMaxNum(null, 0));
 
-		$this->assertFalse(($this->className)::validateMax('ccc', 'bbb'));
-		$this->assertTrue(($this->className)::validateMax('bbb', 'bbb'));
-		$this->assertTrue(($this->className)::validateMax('aaa', 'bbb'));
+		$this->assertFalse(($this->className)::validateMaxNum('ccc', 'bbb'));
+		$this->assertTrue(($this->className)::validateMaxNum('bbb', 'bbb'));
+		$this->assertTrue(($this->className)::validateMaxNum('aaa', 'bbb'));
 
-		$this->assertTrue(($this->className)::validateMax(true, true));
-		$this->assertTrue(($this->className)::validateMax(false, true));
-		$this->assertTrue(($this->className)::validateMax(false, false));
-		$this->assertFalse(($this->className)::validateMax(true, false));
+		$this->assertTrue(($this->className)::validateMaxNum(true, true));
+		$this->assertTrue(($this->className)::validateMaxNum(false, true));
+		$this->assertTrue(($this->className)::validateMaxNum(false, false));
+		$this->assertFalse(($this->className)::validateMaxNum(true, false));
 	}
 
 	/**
@@ -208,6 +208,46 @@ class Validation__validate__Test extends TestCase {
 		$this->assertTrue(($this->className)::validateMaxStr(0, 4));
 		$this->assertTrue(($this->className)::validateMaxStr(10, 4));
 		$this->assertTrue(($this->className)::validateMaxStr(20, 4));
+	}
+
+	/**
+	 * Проверка на минимальное значение параметра (строка)
+	 */
+	public function test__validateMinArr() {
+		$this->assertTrue(($this->className)::validateMinArr('аааа', null));
+		$this->assertTrue(($this->className)::validateMinArr(0, null));
+		$this->assertTrue(($this->className)::validateMinArr(10, null));
+		$this->assertTrue(($this->className)::validateMinArr([], null));
+		$this->assertTrue(($this->className)::validateMinArr(['1', '2', '3', '4',], null));
+
+		$this->assertFalse(($this->className)::validateMinArr([], 4));
+		$this->assertFalse(($this->className)::validateMinArr('aaaa', 4));
+		$this->assertFalse(($this->className)::validateMinArr(0, 4));
+		$this->assertFalse(($this->className)::validateMinArr(10, 4));
+
+		$this->assertFalse(($this->className)::validateMinArr(['1', '2', '3',], 4));
+		$this->assertTrue(($this->className)::validateMinArr(['1', '2', '3', '4',], 4));
+		$this->assertTrue(($this->className)::validateMinArr(['1', '2', '3', '4', '5'], 4));
+	}
+
+	/**
+	 * Проверка на максимальное значение параметра (строка)
+	 */
+	public function test__validateMaxArr() {
+		$this->assertTrue(($this->className)::validateMaxArr('aaaa', null));
+		$this->assertTrue(($this->className)::validateMaxArr(0, null));
+		$this->assertTrue(($this->className)::validateMaxArr(10, null));
+		$this->assertTrue(($this->className)::validateMaxArr([], null));
+		$this->assertTrue(($this->className)::validateMaxArr(['1', '2', '3', '4',], null));
+
+		$this->assertTrue(($this->className)::validateMaxArr([], 4));
+		$this->assertFalse(($this->className)::validateMaxArr('aaaa', 4));
+		$this->assertFalse(($this->className)::validateMaxArr(0, 4));
+		$this->assertFalse(($this->className)::validateMaxArr(10, 4));
+
+		$this->assertTrue(($this->className)::validateMaxArr(['1', '2', '3',], 4));
+		$this->assertTrue(($this->className)::validateMaxArr(['1', '2', '3', '4',], 4));
+		$this->assertFalse(($this->className)::validateMaxArr(['1', '2', '3', '4', '5'], 4));
 	}
 
 	/**
