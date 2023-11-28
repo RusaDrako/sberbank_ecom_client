@@ -44,7 +44,8 @@ $options = [
     'userName' => '...', // Логин Клиента
     'password' => '...', // Пароль Клиента
     'api_host' => Client::API_HOST_TEST, // Хост
-    'timeout' => 10,
+    'timeout' => 10, //Время ожидания ответа
+    'datafile' => __DIR__ . '/sberbank_ecom_1.0.4.json', // Местоположение файла с настройками
 ];
 ```
 

@@ -49,9 +49,9 @@ class Options{
 	public function getActionOptions(string $actionName) {
 		// Существует ли настрока действия
 		if (array_key_exists($actionName, $this->existsAction)) {
-			// Получаем местоположение схемы
+			// Получаем расположение схемы действия
 			$schemaName = $this->getBranch(['#', 'paths', $this->existsAction[$actionName], 'post', 'requestBody', 'content', 'application/json', 'schema', '$ref']);
-			// Получаем настройки схемы
+			// Получаем настройки схемы действия
 			$optionsSet = $this->getBranch($schemaName);
 			// Обрабатываем настройки
 			foreach($optionsSet['properties'] as $k => $v) {
@@ -59,9 +59,11 @@ class Options{
 				// Если есть схема настройки
 				if (array_key_exists('$ref', $v)) {
 					$dataSet = $this->getBranch($v['$ref']);
+				// Иначе это массив настроек
 				} else {
 					$dataSet = $v;
 				}
+				// Получаем настройки
 				$result[$dataSet['name']]=[
 					static::SET_TYPE => $dataSet['type'],
 					static::SET_REQUIRED => in_array($dataSet['name'], $optionsSet['required']),
