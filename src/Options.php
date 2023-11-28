@@ -55,13 +55,34 @@ class Options{
 			$optionsSet = $this->getBranch($schemaName);
 			// Обрабатываем настройки
 			foreach($optionsSet['properties'] as $k => $v) {
-				$this->options[$k] = null;
+				$optData = $v;
 				// Если есть схема настройки
-				if (array_key_exists('$ref', $v)) {
-					$dataSet = $this->getBranch($v['$ref']);
+				if (array_key_exists('$ref', $optData)) {
+					$dataSet = $this->getBranch($optData['$ref']);
 				// Иначе это массив настроек
 				} else {
-					$dataSet = $v;
+					$dataSet = $optData;
+				}
+				// Получаем настройки
+				$result[$dataSet['name']]=[
+					static::SET_TYPE => $dataSet['type'],
+					static::SET_REQUIRED => in_array($dataSet['name'], $optionsSet['required']),
+					static::SET_MAX => $dataSet['maxLength'] ?: ($dataSet['maximum'] ?: ($dataSet['maxProperties'] ?: null)),
+					static::SET_MIN => $dataSet['minLength'] ?: ($dataSet['minimum'] ?: ($dataSet['minProperties'] ?: null)),
+					static::SET_REG_EXP => $dataSet['pattern'] ?: null,
+					static::SET_ENUM => $dataSet['unum'] ?: null,
+				];
+			}
+			// Обрабатываем настройки (одна из)
+			// TODO Оформить обработчик и проверку 'Один из'
+			foreach($optionsSet['oneOf'] as $k => $v) {
+				$optData = array_shift($v['properties']);
+				// Если есть схема настройки
+				if (array_key_exists('$ref', $optData)) {
+					$dataSet = $this->getBranch($optData['$ref']);
+					// Иначе это массив настроек
+				} else {
+					$dataSet = $optData;
 				}
 				// Получаем настройки
 				$result[$dataSet['name']]=[
