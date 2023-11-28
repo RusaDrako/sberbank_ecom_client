@@ -20,6 +20,8 @@ class Client{
 	protected $options = [
 		'userName' => null, // Логин Клиента
 		'password' => null, // Пароль Клиента
+		'language' => null, // Язык
+		'currency' => null, // Валюта
 	];
 
 	/** @var string Время ожидания ответа */

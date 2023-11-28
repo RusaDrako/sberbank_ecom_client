@@ -29,8 +29,8 @@ require_once('/sberbank_ecom_client/src/autoload.php')
 ```php
 use RusaDrako\sberbank_ecom_client\Client;
 $options = [
-    'userName' => '...',
-    'password' => '...',
+    'userName' => 'yourLogin',
+    'password' => 'yourPassword',
     'api_host' => Client::API_HOST,
 ];
 $client = new Client($options);
@@ -41,9 +41,11 @@ $client = new Client($options);
 ```php
 use RusaDrako\sberbank_ecom_client\Client;
 $options = [
-    'userName' => '...', // Логин Клиента
-    'password' => '...', // Пароль Клиента
+    'userName' => 'yourLogin', // Логин Клиента
+    'password' => 'yourPassword', // Пароль Клиента
     'api_host' => Client::API_HOST_TEST, // Хост
+    'currency' => Currency::RUB, // Валюта
+    'language' => Language::RUS, // Язык
     'timeout' => 10, //Время ожидания ответа
     'datafile' => __DIR__ . '/sberbank_ecom_1.0.4.json', // Местоположение файла с настройками
 ];

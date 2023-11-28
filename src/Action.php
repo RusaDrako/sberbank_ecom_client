@@ -17,7 +17,7 @@ class Action extends Item{
 	/** */
 	public function __debugInfo(){
 		$options = [];
-		foreach($this->options as $k => $v) {
+		foreach($this->_options as $k => $v) {
 			if ($v !== null) {
 				$options[$k] = $v;
 			}
@@ -28,7 +28,6 @@ class Action extends Item{
 				: $this->_parent,
 			'actionName' => $this->actionName,
 			'options' => $options,
-			'optionsRequired' => $this->optionsRequired,
 //			'optionsSet' => $this->optionsSet,
 			parent::__debugInfo(),
 			[
