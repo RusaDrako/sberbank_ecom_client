@@ -12,6 +12,7 @@ $arr_load = [
 	'Action.php',
 	'Response.php',
 	'Client.php',
+	'ClientExpansion.php',
 ];
 
 foreach($arr_load as $k => $v) {
