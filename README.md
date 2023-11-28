@@ -28,6 +28,7 @@ require_once('/sberbank_ecom_client/src/autoload.php')
 Базовый класс Клиента.
 ```php
 use RusaDrako\sberbank_ecom_client\Client;
+
 $options = [
     'userName' => 'yourLogin',
     'password' => 'yourPassword',
@@ -40,6 +41,9 @@ $client = new Client($options);
 Полный набор свойств:
 ```php
 use RusaDrako\sberbank_ecom_client\Client;
+use RusaDrako\sberbank_ecom_client\Currency;
+use RusaDrako\sberbank_ecom_client\Language;
+
 $options = [
     'userName' => 'yourLogin', // Логин Клиента
     'password' => 'yourPassword', // Пароль Клиента
@@ -127,6 +131,7 @@ $array = $response->getArray();
 Объект с кодами валют в соответствующем формате.
 ```php
 use RusaDrako\sberbank_ecom_client\Currency;
+
 $currency_code = Currency::RUB;
 ```
 
@@ -134,6 +139,7 @@ $currency_code = Currency::RUB;
 Объект с кодами языков в соответствующем формате.
 ```php
 use RusaDrako\sberbank_ecom_client\Language;
+
 $currency_code = Language::RUS;
 ```
 
