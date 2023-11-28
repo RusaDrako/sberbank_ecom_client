@@ -16,24 +16,32 @@ class Action extends Item{
 
 	/** */
 	public function __debugInfo(){
-		return array_merge(
-			[
-				'parent' => is_object($this->_parent)
-					? get_class($this->_parent)
-					: $this->_parent,
-				'actionName' => $this->actionName,
-			],
+		$options = [];
+		foreach($this->options as $k => $v) {
+			if ($v !== null) {
+				$options[$k] = $v;
+			}
+		}
+		return [
+			'parent' => is_object($this->_parent)
+				? get_class($this->_parent)
+				: $this->_parent,
+			'actionName' => $this->actionName,
+			'options' => $options,
+			'optionsRequired' => $this->optionsRequired,
+//			'optionsSet' => $this->optionsSet,
 			parent::__debugInfo(),
 			[
 				'optionsForJSON' => $this->optionsForJSON,
 			]
-		);
+		];
 	}
 
 	/** */
-	public function __construct(string $actionName){
+	public function __construct($objectClient, string $actionName){
 		$this->actionName = $actionName;
-		$this->setOption = Options::getActionOptions($actionName);
+		$this->_parent = $objectClient;
+		$this->setOption = $this->_parent->getObjectOptions()->getActionOptions($actionName);
 		$this->isFree = !(bool)$this->setOption;
 		parent::__construct(\array_fill_keys(array_keys($this->setOption), null));
 	}

@@ -25,11 +25,14 @@ class Client{
 	/** @var string Время ожидания ответа */
 	protected $timeout = 10;
 
-	/**  */
+	/** @var string Объект настроек */
+	protected $objectOptions;
+
 	public function __construct(array $options = []){
-		$this->api_host = $options['api_host'] ?? Client::API_HOST_TEST;
+		$this->objectOptions = new Options($options['datafile'] ?? (__DIR__ . '/jsonapi/sberbank_ecom_1.0.4.json'));
+		$this->api_host = $options['api_host'] ?? static::API_HOST_TEST;
 		$this->timeout = $options['timeout'] ?? $this->timeout;
-		$this->options = Client::optionsMerge($this->options, $options);
+		$this->options = static::optionsMerge($this->options, $options);
 	}
 
 	/** Объединяет массивы настроек */
@@ -64,9 +67,13 @@ class Client{
 	 * @param string $actionName Имя действия
 	 */
 	public function getAction(string $actionName){
-		$action = new Action($actionName);
+		$action = new Action($this, $actionName);
 		$action->setParent($this);
 		return $action;
+	}
+
+	public function getObjectOptions(){
+		return $this->objectOptions;
 	}
 
 	/**

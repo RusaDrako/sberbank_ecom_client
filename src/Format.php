@@ -23,13 +23,13 @@ class Format{
 			case Options::TYPE_INT:
 				$value = (int)$value;
 				break;
-			// Дата
-			case Options::TYPE_DATE:
-				$value = date('Y-m-dTH:i:s', strtotime($value));
+			// Число
+			case Options::TYPE_NUM:
+				$value = (double)$value;
 				break;
-			// Перечисление, несколько вариантов
-			case Options::TYPE_ENMS:
-				$value = implode(';', $value);
+			// Число
+			case Options::TYPE_BOOL:
+				$value = (bool)$value;
 				break;
 		}
 
