@@ -127,7 +127,7 @@ use RusaDrako\sberbank_ecom_client\Currency;
 $currency_code = Currency::RUB;
 ```
 
-### Класс Language
+## Класс Language
 Объект с кодами языков в соответствующем формате.
 ```php
 use RusaDrako\sberbank_ecom_client\Language;
