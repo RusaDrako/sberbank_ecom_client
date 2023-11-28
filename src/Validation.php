@@ -63,6 +63,12 @@ class Validation{
 				break;
 			// JSON
 			case Options::TYPE_JSON:
+				if (!is_array($value)) {
+					throw new ExceptionValidation("{$optionName}: Параметр должен быть массивом");
+				}
+				if (count($value) < 1) {
+					throw new ExceptionValidation("{$optionName}: Количество элементов меньше 1. Необходимо задать хотябы одит элемент, или не активировать параметр.");
+				}
 				if (count($value) > 99) {
 					throw new ExceptionValidation("{$optionName}: Количество элементов больше 99");
 				}
