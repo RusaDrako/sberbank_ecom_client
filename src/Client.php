@@ -30,6 +30,9 @@ class Client{
 	/** @var string Объект настроек */
 	protected $objectOptions;
 
+	/** @var string Полседние действие */
+	protected $lastAction;
+
 	public function __construct(array $options = []){
 		$this->objectOptions = new Options($options['datafile'] ?? (__DIR__ . '/jsonapi/sberbank_ecom_1.0.4.json'));
 		$this->api_host = $options['api_host'] ?? static::API_HOST_TEST;
@@ -74,6 +77,14 @@ class Client{
 		return $action;
 	}
 
+	/**
+	 * Возвращает последнее выполненое действие
+	 * @param string $actionName Имя действия
+	 */
+	public function getLastExecutedAction(){
+		return $this->lastAction;
+	}
+
 	public function getObjectOptions(){
 		return $this->objectOptions;
 	}
@@ -84,6 +95,7 @@ class Client{
 	 * @return array|mixed
 	 */
 	public function execute(Action $action) {
+		$this->lastAction = $action;
 		# Запускай curl
 		$curl = curl_init();
 		$headers = [
