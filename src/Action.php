@@ -9,7 +9,7 @@ class Action extends Item{
 	protected $actionName;
 	/** @var bool Указатель, что действие не имеет настроек */
 	protected $isFree = false;
-	/** @var Настройки параметров */
+	/** @var array Настройки параметров */
 	protected $setOption;
 	/** @var array Параметры действия подготовленные для JSON */
 	protected $optionsForJSON = [];
@@ -27,12 +27,11 @@ class Action extends Item{
 				? get_class($this->_parent)
 				: $this->_parent,
 			'actionName' => $this->actionName,
-			'options' => $options,
-//			'optionsSet' => $this->optionsSet,
-			parent::__debugInfo(),
-			[
-				'optionsForJSON' => $this->optionsForJSON,
-			]
+			'optionsActive' => $options,
+//			'optionsSet' => $this->setOption,
+			'optionsFull' => parent::__debugInfo(),
+			'optionsForJSON' => $this->optionsForJSON,
+			'JSON' => $this->getOptionsJSON(),
 		];
 	}
 
