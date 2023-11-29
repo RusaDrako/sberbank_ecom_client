@@ -79,7 +79,7 @@ class Action extends Item{
 		$arr = $this->optionsForJSON;
 		unset($arr['userName']);
 		unset($arr['password']);
-		return json_encode($this->optionsForJSON);
+		return json_encode($arr);
 	}
 
 	/** Выполняет валидацию, подготовку данных и запрос */
