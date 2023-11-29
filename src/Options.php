@@ -54,7 +54,7 @@ class Options{
 			// Получаем настройки схемы действия
 			$optionsSet = $this->getBranch($schemaName);
 			// Обрабатываем настройки
-			foreach($optionsSet['properties'] as $k => $v) {
+			foreach($optionsSet['properties'] ?: [] as $k => $v) {
 				$optData = $v;
 				// Если есть схема настройки
 				if (array_key_exists('$ref', $optData)) {
@@ -75,7 +75,7 @@ class Options{
 			}
 			// Обрабатываем настройки (одна из)
 			// TODO Оформить обработчик и проверку 'Один из'
-			foreach($optionsSet['oneOf'] as $k => $v) {
+			foreach($optionsSet['oneOf'] ?: [] as $k => $v) {
 				$optData = array_shift($v['properties']);
 				// Если есть схема настройки
 				if (array_key_exists('$ref', $optData)) {
