@@ -74,6 +74,14 @@ class Action extends Item{
 		return json_encode($this->optionsForJSON);
 	}
 
+	/** Преобразует данные запроса в JSON без аутентификации */
+	public function getOptionsJSONWithNotAuth(){
+		$arr = $this->optionsForJSON;
+		unset($arr['userName']);
+		unset($arr['password']);
+		return json_encode($this->optionsForJSON);
+	}
+
 	/** Выполняет валидацию, подготовку данных и запрос */
 	public function execute(){
 		if ($this->isFree) {
