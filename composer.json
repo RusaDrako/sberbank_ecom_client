@@ -4,6 +4,13 @@
   "type": "library",
   "license": "MIT",
   "minimum-stability": "stable",
+  "keywords": [
+    "sberbank",
+    "acquiring",
+    "credit card",
+    "client"
+  ],
+  "homepage": "https://github.com/RusaDrako/sberbank_ecom_client",
   "authors": [
     {
       "name": "Petukhov Leonid",
