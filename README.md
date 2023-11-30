@@ -34,6 +34,7 @@ $options = [
     'password' => 'yourPassword',
     'api_host' => Client::API_HOST,
 ];
+
 $client = new Client($options);
 ```
 По умолчанию клиент использует тестовый `api_host` => `Client::API_HOST_TEST` ( https://ecomtest.sberbank.ru/ )
@@ -105,6 +106,12 @@ $string = $action->getActionName();
 $json = $action->getOptionsJSON();
 ```
 
+#### Метод getOptionsJSONWithNotAuth()
+Возвращает JSON запроса действия без настроек аутентификации.
+```php
+$json = $action->getOptionsJSONWithNotAuth();
+```
+
 
 ## Класс Response
 Объект результата запроса.
@@ -135,12 +142,66 @@ use RusaDrako\sberbank_ecom_client\Currency;
 $currency_code = Currency::RUB;
 ```
 
+
 ## Класс Language
 Объект с кодами языков в соответствующем формате.
 ```php
 use RusaDrako\sberbank_ecom_client\Language;
 
 $currency_code = Language::RUS;
+```
+
+
+## Класс ClientExpansion
+Расширенние функционала класса Client для совместимости с Voronkovich\sberbank-acquiring-client (v2.8)
+
+```php
+/** Register a new order. */
+public function registerOrder($orderNumber, int $amount, string $returnUrl, array $data = []) { ... }
+/** Register a new order using a 2-step payment process. */
+public function registerOrderPreAuth($orderNumber, int $amount, string $returnUrl, array $data = []) { ... }
+/** Register a new credit order. */
+public function registerCreditOrder($orderNumber, int $amount, string $returnUrl, array $data = []) { ... }
+/** Register a new credit order using a 2-step payment process. */
+public function registerCreditOrderPreAuth($orderNumber, int $amount, string $returnUrl, array $data = []) { ... }
+/** Deposit an existing order. */
+public function deposit($orderId, int $amount, array $data = []) { ... }
+/** Reverse an existing order. */
+public function reverseOrder($orderId, array $data = []) { ... }
+/** Refund an existing order. */
+public function refundOrder($orderId, int $amount, array $data = []) { ... }
+/** Get an existing order's status by Sberbank's gateway identifier. */
+public function getOrderStatus($orderId, array $data = []) { ... }
+/** Get an existing order's status by own identifier. */
+public function getOrderStatusByOwnId($orderId, array $data = []) { ... }
+/** Verify card enrollment in the 3DS. */
+public function verifyEnrollment(string $pan, array $data = []) { "не реализован"; }
+/** Update an SSL card list. */
+public function updateSSLCardList($orderId, array $data = []) { "не реализован"; }
+/** Get last orders for merchants. */
+public function getLastOrdersForMerchants(\DateTimeInterface $from, \DateTimeInterface $to = null, array $data = []) { "не реализован"; }
+/** Payment order binding. $ip - new */
+public function paymentOrderBinding($mdOrder, $bindingId, string $ip, array $data = []) { ... }
+/** Activate a binding. */
+public function bindCard($bindingId, array $data = []) { ... }
+/** Deactivate a binding. */
+public function unBindCard($bindingId, array $data = []) { ... }
+/** Extend a binding. */
+public function extendBinding($bindingId, \DateTimeInterface $newExpiry, array $data = []) { "не реализован"; }
+/** Get bindings. */
+public function getBindings($clientId, array $data = []) { ... }
+/** Get a receipt status. $receiptId - new */
+public function getReceiptStatus(string $receiptId, array $data) { ... }
+/** Pay with Apple Pay. */
+public function payWithApplePay($orderNumber, string $merchant, string $paymentToken, array $data = []) { "не реализован"; }
+/** Pay with Google Pay. */
+public function payWithGooglePay($orderNumber, string $merchant, string $paymentToken, array $data = []) { "не реализован"; }
+/** Pay with Samsung Pay. */
+public function payWithSamsungPay($orderNumber, string $merchant, string $paymentToken, array $data = []) { "не реализован"; }
+/** Get QR code for payment through SBP. */
+public function getSbpDynamicQr($orderId, array $data = []) { "не реализован"; }
+/** Get QR code status. */
+public function getSbpQrStatus($orderId, string $qrId, array $data = []) { "не реализован"; }
 ```
 
 

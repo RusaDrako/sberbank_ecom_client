@@ -8,7 +8,7 @@ namespace RusaDrako\sberbank_ecom_client;
 class ClientExpansion extends Client{
 
 	/** Базовый класс выполнения действия */
-	protected function _getResponseForAction($actionName, $requiredData, $data) {
+	protected function _getResponseForAction($actionName, $requiredData, $data): array {
 		$response = $this->action($actionName, array_merge($requiredData, $data));
 		return $response->getArray();
 	}
@@ -197,7 +197,7 @@ class ClientExpansion extends Client{
 	 */
 	public function verifyEnrollment(string $pan, array $data = []): array
 	{
-		throw new ExceptionClientExpansion("verifyEnrollment->verifyEnrollment.do: Метод не поддерживается.");
+		throw new ExceptionClientExpansion("verifyEnrollment->verifyEnrollment.do: Метод не реализован.");
 		//$data['pan'] = $pan;
 		//
 		//return $this->execute($this->prefixDefault . 'verifyEnrollment.do', $data);
@@ -215,7 +215,7 @@ class ClientExpansion extends Client{
 	 */
 	public function updateSSLCardList($orderId, array $data = []): array
 	{
-		throw new ExceptionClientExpansion("updateSSLCardList->updateSSLCardList.do: Метод не поддерживается.");
+		throw new ExceptionClientExpansion("updateSSLCardList->updateSSLCardList.do: Метод не реализован.");
 		//$data['mdorder'] = (string) $orderId;
 		//
 		//return $this->execute($this->prefixDefault . 'updateSSLCardList.do', $data);
@@ -234,7 +234,7 @@ class ClientExpansion extends Client{
 	 */
 	public function getLastOrdersForMerchants(\DateTimeInterface $from, \DateTimeInterface $to = null, array $data = []): array
 	{
-		throw new ExceptionClientExpansion("getLastOrdersForMerchants->getLastOrdersForMerchants.do: Метод не поддерживается.");
+		throw new ExceptionClientExpansion("getLastOrdersForMerchants->getLastOrdersForMerchants.do: Метод не реализован.");
 		//if (null === $to) {
 		//	$to = new \DateTime();
 		//}
@@ -352,7 +352,7 @@ class ClientExpansion extends Client{
 	 */
 	public function extendBinding($bindingId, \DateTimeInterface $newExpiry, array $data = []): array
 	{
-		throw new ExceptionClientExpansion("extendBinding->extendBinding.do: Метод не поддерживается.");
+		throw new ExceptionClientExpansion("extendBinding->extendBinding.do: Метод не реализован.");
 		//$data['bindingId'] = (string) $bindingId;
 		//$data['newExpiry'] = $newExpiry->format('Ym');
 		//
@@ -407,7 +407,7 @@ class ClientExpansion extends Client{
 	 */
 	public function payWithApplePay($orderNumber, string $merchant, string $paymentToken, array $data = []): array
 	{
-		throw new ExceptionClientExpansion("payWithApplePay->payment.do: Метод не поддерживается.");
+		throw new ExceptionClientExpansion("payWithApplePay->payment.do: Метод не реализован.");
 		//$data['orderNumber'] = (string) $orderNumber;
 		//$data['merchant'] = $merchant;
 		//$data['paymentToken'] = $paymentToken;
@@ -429,7 +429,7 @@ class ClientExpansion extends Client{
 	 */
 	public function payWithGooglePay($orderNumber, string $merchant, string $paymentToken, array $data = []): array
 	{
-		throw new ExceptionClientExpansion("payWithGooglePay->payment.do: Метод не поддерживается.");
+		throw new ExceptionClientExpansion("payWithGooglePay->payment.do: Метод не реализован.");
 		//$data['orderNumber'] = (string) $orderNumber;
 		//$data['merchant'] = $merchant;
 		//$data['paymentToken'] = $paymentToken;
@@ -451,7 +451,7 @@ class ClientExpansion extends Client{
 	 */
 	public function payWithSamsungPay($orderNumber, string $merchant, string $paymentToken, array $data = []): array
 	{
-		throw new ExceptionClientExpansion("payWithSamsungPay->payment.do: Метод не поддерживается.");
+		throw new ExceptionClientExpansion("payWithSamsungPay->payment.do: Метод не реализован.");
 		//$data['orderNumber'] = (string) $orderNumber;
 		//$data['merchant'] = $merchant;
 		//$data['paymentToken'] = $paymentToken;
@@ -469,7 +469,7 @@ class ClientExpansion extends Client{
 	 */
 	public function getSbpDynamicQr($orderId, array $data = []): array
 	{
-		throw new ExceptionClientExpansion("getSbpDynamicQr->dynamic/get.do: Метод не поддерживается.");
+		throw new ExceptionClientExpansion("getSbpDynamicQr->dynamic/get.do: Метод не реализован.");
 		//if (empty($this->prefixSbpQr)) {
 		//	throw new \RuntimeException('The "prefixSbpQr" option is unspecified.');
 		//}
@@ -490,7 +490,7 @@ class ClientExpansion extends Client{
 	 */
 	public function getSbpQrStatus($orderId, string $qrId, array $data = []): array
 	{
-		throw new ExceptionClientExpansion("getSbpQrStatus-status.do: Метод не поддерживается.");
+		throw new ExceptionClientExpansion("getSbpQrStatus-status.do: Метод не реализован.");
 		//if (empty($this->prefixSbpQr)) {
 		//	throw new \RuntimeException('The "prefixSbpQr" option is unspecified.');
 		//}

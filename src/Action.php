@@ -97,7 +97,7 @@ class Action extends Item{
 	}
 
 	/** Выполняет валидацию данных */
-	public function validateOptions() {
+	protected function validateOptions() {
 		$this->optionsForJSON = [];
 		foreach($this->setOption as $k => $v) {
 			$value = $this->_options[$k];
@@ -109,7 +109,7 @@ class Action extends Item{
 	}
 
 	/** Выполняет форматирование данных */
-	public function formatOptions(){
+	protected function formatOptions(){
 		foreach($this->optionsForJSON as $k => $v) {
 			$this->optionsForJSON[$k] = Format::format($v, $this->setOption[$k]);
 		}

@@ -24,6 +24,7 @@ class Options{
 	/** @var string Имя свойства 'Hегулярное выражение' */
 	const SET_ENUM = 'enum';
 
+	/** @var array Список доступных действий */
 	private $existsAction = [];
 
 	public function __construct($fileData){
