@@ -4,7 +4,7 @@ namespace RusaDrako\sberbank_ecom_client\Tests;
 use PHPUnit\Framework\TestCase;
 use RusaDrako\sberbank_ecom_client\Language;
 
-require_once(__DIR__ . '/../src/autoload.php');
+require_once(__DIR__ . '/_autoload.php');
 
 /**
  * @author Petukhov Leonid <f182@rambler.ru>
