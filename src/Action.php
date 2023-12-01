@@ -7,6 +7,8 @@ namespace RusaDrako\sberbank_ecom_client;
 class Action extends Item{
 	/** @var string Имя действия */
 	protected $actionName;
+	/** @var string Имя действия */
+	protected $actionUrlPath;
 	/** @var bool Указатель, что действие не имеет настроек */
 	protected $isFree = false;
 	/** @var array Настройки параметров */
@@ -40,6 +42,7 @@ class Action extends Item{
 		$this->actionName = $actionName;
 		$this->_parent = $objectClient;
 		$this->setOption = $this->_parent->getObjectOptions()->getActionOptions($actionName);
+		$this->actionUrlPath = $this->_parent->getObjectOptions()->getActionUrlPath($actionName);
 		$this->isFree = !(bool)$this->setOption;
 		parent::__construct(\array_fill_keys(array_keys($this->setOption), null));
 	}
@@ -68,6 +71,12 @@ class Action extends Item{
 	 * @return string|string
 	 */
 	public function getActionName(){ return $this->actionName; }
+
+	/**
+	 * Возвращает путь действия
+	 * @return string|string
+	 */
+	public function getActionUrlPath(){ return $this->actionUrlPath; }
 
 	/** Преобразует данные запроса в JSON */
 	public function getOptionsJSON(){

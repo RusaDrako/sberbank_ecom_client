@@ -108,6 +108,15 @@ class Options{
 		throw new ExceptionOptionsValidation("Действие '{$actionName}' не найдено.");
 	}
 
+	/** Возвращает путь указанного действия */
+	public function getUrlPathForAction(string $actionName) {
+		// Существует ли настрока действия
+		if (array_key_exists($actionName, $this->existsActions)) {
+			return $this->existsActions[$actionName];
+		}
+		throw new ExceptionOptionsValidation("Действие '{$actionName}' не найдено.");
+	}
+
 	/** Возвращает ветку данных */
 	private function getBranch($branch) {
 		if (!is_array($branch)) {

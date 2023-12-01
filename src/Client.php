@@ -7,14 +7,12 @@ namespace RusaDrako\sberbank_ecom_client;
 class Client{
 
 	/** Боевой хост платёжного шлюза */
-	const API_HOST = 'https://ecommerce.sberbank.ru/';
+	const API_HOST = 'https://ecommerce.sberbank.ru';
 	/** Тестовый хост платёжного шлюза */
-	const API_HOST_TEST = 'https://ecomtest.sberbank.ru/';
+	const API_HOST_TEST = 'https://ecomtest.sberbank.ru';
 
 	/** @var string Активный хост платёжного шлюза */
 	protected $api_host;
-	/** @var string Корневой путь платёжного шлюза */
-	protected $api_service_root = 'ecomm/gw/partner/api/v1/';
 
 	/** @var array Базовые параметры подключения */
 	protected $options = [
@@ -103,8 +101,8 @@ class Client{
 	}
 
 	/** Возвращает url действия */
-	public function getUrlAction(string $actionName) {
-		return "{$this->api_host}{$this->api_service_root}{$actionName}";
+	public function getUrlAction(string $actionPath) {
+		return "{$this->api_host}{$actionPath}";
 	}
 
 	/**
@@ -115,7 +113,7 @@ class Client{
 	public function execute(Action $action) {
 		# Запоминаем последний выполняемый запрос
 		$this->lastAction = $action;
-		$url = $this->getUrlAction($action->getActionName());
+		$url = $this->getUrlAction($action->getActionUrlPath());
 		# Выполняем запрос
 		return $this->httpClient($url, $action->getOptionsJSON(), $action->getActionName());
 	}
