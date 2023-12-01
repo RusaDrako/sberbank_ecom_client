@@ -36,35 +36,40 @@ class Client__actions_control__Test extends TestCase {
 	public function test__actions() {
 		$client = $this->object;
 		$options = $client->getObjectOptions();
-		$arrActions = array_keys($options->getExistsActions());
+		$arrActionsPath = $options->getExistsActions();
 		$curl = new Curl();
 
-		foreach($arrActions as $v) {
+		foreach($arrActionsPath as $k=>$v) {
 			// Callback-уведомления не обрабатываем
-			if (in_array($v, $this->callbackNotifications)) { continue; }
+			if (in_array($k, $this->callbackNotifications)) { continue; }
 
 			$response = $curl->request($client->getUrlAction($v), '{"userName":"' . _Login::LOGIN . '","' . _Login::PASSWORD . '"}');
 			$arr = \json_decode($response, true);
 
 			// Надо смотреть почему 7
-			if (in_array($v, [
+			if (in_array($k, [
 				'paymentDirectMirPay.do',
+			])) {
+				$this->assertEquals(7, $arr['errorCode'], $k);
+				$this->assertEquals("System error", $arr['errorMessage'], $k);
+			// Другой формат ответа
+			} else if (in_array($k, [
+				'recurrentPayment.do',
+				'paymentOrderBySubscription',
+			])) {
+				var_dump($v,$arr);
+				$this->assertEquals(5, $arr['error']['code'], $k);
+				$this->assertEquals("Error, value of the request parameter", $arr['error']['description'], $k);
+			// Система ofd
+			} else if (in_array($k, [
 				'getReceiptStatus',
 				'retryReceipt',
 				'doReceipt',
 			])) {
-				$this->assertEquals(7, $arr['errorCode'], $v);
-				$this->assertEquals("System error", $arr['errorMessage'], $v);
-			// Другой формат ответа
-			} else if (in_array($v, [
-				'paymentOrderBySubscription',
-				'recurrentPayment.do',
-			])) {
-				$this->assertEquals(5, $arr['error']['code'], $v);
-				$this->assertEquals("Error, value of the request parameter", $arr['error']['description'], $v);
+				$this->assertStringContainsString('The requested URL was rejected', $response, $k);
 			} else {
-				$this->assertEquals(5, $arr['errorCode'], $v);
-				$this->assertEquals("Error, value of the request parameter", $arr['errorMessage'], $v);
+				$this->assertEquals(5, $arr['errorCode'], $k);
+				$this->assertEquals("Error, value of the request parameter", $arr['errorMessage'], $k);
 			}
 		}
 	}
