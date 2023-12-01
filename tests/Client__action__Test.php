@@ -12,19 +12,22 @@ require_once(__DIR__ . '/_autoload.php');
 class Client__action__Test extends TestCase {
 
 	private $className = Client::class;
+	private $object = null;
 
 	/** Вызывается перед каждым запуском тестового метода */
-	protected function setUp() : void {}
+	protected function setUp() : void {
+		$this->object = new $this->className([
+			'userName'=>'login',
+			'password'=>'password',
+		]);
+	}
 
 	/** Вызывается после каждого запуска тестового метода */
 	protected function tearDown() : void {}
 
 	/** Выполнение запроса действия (с ошибкой) */
 	public function test__action() {
-		$client = new $this->className([
-			'userName'=>'login',
-			'password'=>'password',
-		]);
+		$client = $this->object;
 		$response = $client->action('register.do', [
 			'orderNumber' => 'test',
 			'amount' => 100,
@@ -38,10 +41,7 @@ class Client__action__Test extends TestCase {
 
 	/** Получение объекта Action */
 	public function test__getAction() {
-		$client = new $this->className([
-			'userName'=>'login',
-			'password'=>'password',
-		]);
+		$client = $this->object;
 		$action = $client->getAction('register.do');
 		$this->assertTrue(is_object($action));
 		$this->assertEquals('RusaDrako\sberbank_ecom_client\Action', get_class($action));;

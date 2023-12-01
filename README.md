@@ -52,7 +52,7 @@ $options = [
     'currency' => Currency::RUB, // Валюта
     'language' => Language::RUS, // Язык
     'timeout' => 10, //Время ожидания ответа
-    'datafile' => __DIR__ . '/sberbank_ecom_1.0.4.json', // Местоположение файла с настройками
+    'datafile' => __DIR__ . '/sberbank_ecom_1.0.4.json', // Местоположение файла со спецификацией OpenAPI
 ];
 ```
 

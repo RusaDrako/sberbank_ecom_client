@@ -113,13 +113,14 @@ class Client{
 	 * @return array|mixed
 	 */
 	public function execute(Action $action) {
+		# Запоминаем последний выполняемый запрос
 		$this->lastAction = $action;
 		$url = $this->getUrlAction($action->getActionName());
-		# Выполняем запросЗапускай curl
+		# Выполняем запрос
 		return $this->httpClient($url, $action->getOptionsJSON(), $action->getActionName());
 	}
 
-	/**  */
+	/** Выполняет запрос с указанными параметрами */
 	public function httpClient($url, $jsonData, $actionName) {
 		$objCurl = new Curl(['timeout'=>$this->timeout]);
 		try {

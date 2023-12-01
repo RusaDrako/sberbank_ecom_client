@@ -1,4 +1,5 @@
 <?php
+namespace RusaDrako\sberbank_ecom_client\Tests;
 
 /** Логин/пароль для тестов */
 class _Login {
