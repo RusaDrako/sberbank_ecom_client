@@ -11,6 +11,7 @@ $arr_load = [
 	'Format.php',
 	'Action.php',
 	'Response.php',
+	'Curl.php',
 	'Client.php',
 	'ClientExpansion.php',
 ];
