@@ -57,7 +57,6 @@ class Client__actions_control__Test extends TestCase {
 				'recurrentPayment.do',
 				'paymentOrderBySubscription',
 			])) {
-				var_dump($v,$arr);
 				$this->assertEquals(5, $arr['error']['code'], $k);
 				$this->assertEquals("Error, value of the request parameter", $arr['error']['description'], $k);
 			// Система ofd
