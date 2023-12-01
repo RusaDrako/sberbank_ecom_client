@@ -116,8 +116,7 @@ class Client{
 		$this->lastAction = $action;
 		$url = $this->getUrlAction($action->getActionName());
 		# Выполняем запросЗапускай curl
-		$result = $this->httpClient($url, $action->getOptionsJSON(), $action->getActionName());
-		return new Response($result);
+		return $this->httpClient($url, $action->getOptionsJSON(), $action->getActionName());
 	}
 
 	/**  */

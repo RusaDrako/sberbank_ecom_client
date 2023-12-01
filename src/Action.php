@@ -92,8 +92,8 @@ class Action extends Item{
 			$this->validateOptions();
 			$this->formatOptions();
 		}
-		$json_result = $this->_parent->execute($this);
-		return new Response($json_result);
+		$result = $this->_parent->execute($this);
+		return new Response($result);
 	}
 
 	/** Выполняет валидацию данных */
