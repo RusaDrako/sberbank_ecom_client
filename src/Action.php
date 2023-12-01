@@ -42,7 +42,7 @@ class Action extends Item{
 		$this->actionName = $actionName;
 		$this->_parent = $objectClient;
 		$this->setOption = $this->_parent->getObjectOptions()->getActionOptions($actionName);
-		$this->actionUrlPath = $this->_parent->getObjectOptions()->getActionUrlPath($actionName);
+		$this->actionUrlPath = $this->_parent->getObjectOptions()->getUrlPathForAction($actionName);
 		$this->isFree = !(bool)$this->setOption;
 		parent::__construct(\array_fill_keys(array_keys($this->setOption), null));
 	}
