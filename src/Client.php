@@ -24,13 +24,13 @@ class Client{
 		'currency' => null, // Валюта
 	];
 
-	/** @var string Время ожидания ответа */
-	protected $timeout = 10;
+	/** @var int Время ожидания ответа */
+	protected $timeout = 15;
 
 	/** @var string Объект настроек */
 	protected $objectOptions;
 
-	/** @var string Полседние действие */
+	/** @var string Последние действие */
 	protected $lastAction;
 
 	public function __construct(array $options = []){
@@ -78,7 +78,7 @@ class Client{
 	}
 
 	/**
-	 * Возвращает последнее выполненое действие
+	 * Возвращает объект последнего выполненого действия
 	 * @param string $actionName Имя действия
 	 */
 	public function getLastExecutedAction(){
@@ -94,36 +94,40 @@ class Client{
 	 * @param Action $action Объект действия
 	 * @return array|mixed
 	 */
+	public function ___execute(Action $action) {
+		$this->lastAction = $action;
+		$url = "{$this->api_host}{$this->api_service_root}{$action->getActionName()}";
+		# Выполняем запросЗапускай curl
+		$result = $this->httpClient($url, $action->getOptionsJSON(), $action->getActionName());
+		return new Response($result);
+	}
+
+	/** Возвращает url действия */
+	public function getUrlAction(string $actionName) {
+		return "{$this->api_host}{$this->api_service_root}{$actionName}";
+	}
+
+	/**
+	 * Выполняет команду
+	 * @param Action $action Объект действия
+	 * @return array|mixed
+	 */
 	public function execute(Action $action) {
 		$this->lastAction = $action;
-		# Запускай curl
-		$curl = curl_init();
-		$headers = [
-			'Content-Type:application/json',
-		];
-		# Формируем
-		$array_curl_set = [
-			CURLOPT_URL              => "{$this->api_host}{$this->api_service_root}{$action->getActionName()}",
-			CURLOPT_HTTPHEADER       => $headers,
-			CURLOPT_RETURNTRANSFER   => TRUE,
-			CURLOPT_TIMEOUT          => $this->timeout,
-			CURLOPT_SSL_VERIFYHOST   => false,
-			CURLOPT_SSL_VERIFYPEER   => false,
-			CURLOPT_POST             => TRUE,
-			CURLOPT_POSTFIELDS       => $action->getOptionsJSON(),
-		];
-		# Выполняем настройки
-		curl_setopt_array($curl, $array_curl_set);
-		# Выполняем curl
-		$result = curl_exec($curl);
-		# Если curl выдал ошибку
-		if ($result === false) {
-			$error = curl_error($curl);
-			curl_close($curl);
-			throw new ExceptionClient("Ошибка выполнения запроса '{$action->getActionName()}': {$error}");
+		$url = $this->getUrlAction($action->getActionName());
+		# Выполняем запросЗапускай curl
+		$result = $this->httpClient($url, $action->getOptionsJSON(), $action->getActionName());
+		return new Response($result);
+	}
+
+	/**  */
+	public function httpClient($url, $jsonData, $actionName) {
+		$objCurl = new Curl(['timeout'=>$this->timeout]);
+		try {
+			$result = $objCurl->request($url, $jsonData);
+		} catch (ExceptionCurl $e) {
+			throw new ExceptionClient("Ошибка выполнения запроса '{$actionName}': {$e->getMessage()}");
 		}
-		# Закрываем соединение
-		curl_close($curl);
 		return $result;
 	}
 
