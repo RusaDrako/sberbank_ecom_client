@@ -25,7 +25,7 @@ class Options{
 	const SET_ENUM = 'enum';
 
 	/** @var array Список доступных действий */
-	private $existsAction = [];
+	private $existsActions = [];
 
 	public function __construct($fileData){
 		if (!file_exists($fileData)) {
@@ -36,22 +36,27 @@ class Options{
 		$this->setActionOptions($this->arrData);
 	}
 
+	/**  */
+	public function getExistsActions() {
+		return $this->existsActions;
+	}
+
 	/** Устанавливает действия, для которых есть настройки */
 	private function setActionOptions() {
 		$data = array_keys($this->arrData['paths']);
 		foreach($data as $v) {
 			$arr = \explode('/', $v);
 			$key = \array_pop($arr);
-			$this->existsAction[$key] = $v;
+			$this->existsActions[$key] = $v;
 		}
 	}
 
 	/** Возвращает настройки указанного действия */
 	public function getActionOptions(string $actionName) {
 		// Существует ли настрока действия
-		if (array_key_exists($actionName, $this->existsAction)) {
+		if (array_key_exists($actionName, $this->existsActions)) {
 			// Получаем расположение схемы действия
-			$schemaName = $this->getBranch(['#', 'paths', $this->existsAction[$actionName], 'post', 'requestBody', 'content', 'application/json', 'schema', '$ref']);
+			$schemaName = $this->getBranch(['#', 'paths', $this->existsActions[$actionName], 'post', 'requestBody', 'content', 'application/json', 'schema', '$ref']);
 			// Получаем настройки схемы действия
 			$optionsSet = $this->getBranch($schemaName);
 			// Обрабатываем настройки
@@ -67,7 +72,7 @@ class Options{
 				// Получаем настройки
 				$result[$dataSet['name']]=[
 					static::SET_TYPE => $dataSet['type'],
-					static::SET_REQUIRED => in_array($dataSet['name'], $optionsSet['required']),
+					static::SET_REQUIRED => in_array($dataSet['name'], $optionsSet['required'] ?: []),
 					static::SET_MAX => $dataSet['maxLength'] ?: ($dataSet['maximum'] ?: ($dataSet['maxProperties'] ?: null)),
 					static::SET_MIN => $dataSet['minLength'] ?: ($dataSet['minimum'] ?: ($dataSet['minProperties'] ?: null)),
 					static::SET_REG_EXP => $dataSet['pattern'] ?: null,
@@ -88,7 +93,9 @@ class Options{
 				// Получаем настройки
 				$result[$dataSet['name']]=[
 					static::SET_TYPE => $dataSet['type'],
-					static::SET_REQUIRED => in_array($dataSet['name'], $optionsSet['required']),
+					// TODO Актуальна при доработке 'Один из' (ошибку)
+					//  static::SET_REQUIRED => in_array($dataSet['name'], $v['required']),
+					static::SET_REQUIRED => null, // in_array($dataSet['name'], $optionsSet['required']),
 					static::SET_MAX => $dataSet['maxLength'] ?: ($dataSet['maximum'] ?: ($dataSet['maxProperties'] ?: null)),
 					static::SET_MIN => $dataSet['minLength'] ?: ($dataSet['minimum'] ?: ($dataSet['minProperties'] ?: null)),
 					static::SET_REG_EXP => $dataSet['pattern'] ?: null,
