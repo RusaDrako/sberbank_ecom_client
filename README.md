@@ -39,7 +39,7 @@ $client = new Client($options);
 ```
 По умолчанию клиент использует тестовый `api_host` => `Client::API_HOST_TEST` ( https://ecomtest.sberbank.ru/ )
 
-Полный набор свойств:
+Полный набор доступных свойств:
 ```php
 use RusaDrako\sberbank_ecom_client\Client;
 use RusaDrako\sberbank_ecom_client\Currency;
@@ -51,7 +51,7 @@ $options = [
     'api_host' => Client::API_HOST_TEST, // Хост
     'currency' => Currency::RUB, // Валюта
     'language' => Language::RUS, // Язык
-    'timeout' => 10, //Время ожидания ответа
+    'timeout' => 15, // Время ожидания ответа от сервиса
     'datafile' => __DIR__ . '/sberbank_ecom_1.0.4.json', // Местоположение файла со спецификацией OpenAPI
 ];
 ```

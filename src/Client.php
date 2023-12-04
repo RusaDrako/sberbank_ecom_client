@@ -87,19 +87,6 @@ class Client{
 		return $this->objectOptions;
 	}
 
-	/**
-	 * Выполняет команду
-	 * @param Action $action Объект действия
-	 * @return array|mixed
-	 */
-	public function ___execute(Action $action) {
-		$this->lastAction = $action;
-		$url = "{$this->api_host}{$this->api_service_root}{$action->getActionName()}";
-		# Выполняем запросЗапускай curl
-		$result = $this->httpClient($url, $action->getOptionsJSON(), $action->getActionName());
-		return new Response($result);
-	}
-
 	/** Возвращает url действия */
 	public function getUrlAction(string $actionPath) {
 		return "{$this->api_host}{$actionPath}";
