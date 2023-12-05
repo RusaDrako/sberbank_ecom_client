@@ -55,7 +55,7 @@ class Client__actions_control__Test extends TestCase {
 			// Другой формат ответа
 			} else if (in_array($k, [
 				'recurrentPayment.do',
-				'paymentOrderBySubscription',
+				'paymentDirectMirPay.do',
 			])) {
 				$this->assertEquals(5, $arr['error']['code'], $k);
 				$this->assertEquals("Error, value of the request parameter", $arr['error']['description'], $k);
