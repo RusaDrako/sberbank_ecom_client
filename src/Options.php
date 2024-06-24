@@ -1,6 +1,8 @@
 <?php
 namespace RusaDrako\sberbank_ecom_client;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Класс свойств
  */
@@ -31,8 +33,18 @@ class Options{
 		if (!file_exists($fileData)) {
 			throw new ExceptionOptionsValidation("Файл настроек '{$fileData}' отсутствует.");
 		}
-		$json = file_get_contents($fileData);
-		$this->arrData = json_decode($json, 1);
+		switch($ext = strtolower(pathinfo($fileData, PATHINFO_EXTENSION))) {
+			case 'yaml':
+				$this->arrData = Yaml::parseFile($fileData);
+				break;
+			case 'json':
+				$json = file_get_contents($fileData);
+				$this->arrData = json_decode($json, 1);
+				break;
+			default:
+				throw new ExceptionOptionsValidation('Формат файла "' . $ext . '" не поддерживается.');
+				break;
+		}
 		$this->setActionOptions($this->arrData);
 	}
 
