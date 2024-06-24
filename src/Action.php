@@ -98,6 +98,7 @@ class Action extends Item{
 			$this->optionsForJSON = $this->_options;
 		} else {
 			$addOptions=[];
+			// Исключение для настроек
 			if(!in_array($this->actionName, ['set-permanent-password'])){
 				$addOptions=$this->_parent->getOptions();
 			}
