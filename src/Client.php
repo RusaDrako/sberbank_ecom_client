@@ -32,7 +32,8 @@ class Client{
 	protected $lastAction;
 
 	public function __construct(array $options = []){
-		$this->objectOptions = new Options($options['datafile'] ?? (__DIR__ . '/jsonapi/sberbank_ecom_1.0.4.json'));
+		$this->objectOptions = new Options($options['datafile']
+			?? (__DIR__ . '/jsonapi/sberbank_ecom_1.0.7.yaml'));
 		$this->api_host = $options['api_host'] ?? static::API_HOST_TEST;
 		$this->timeout = $options['timeout'] ?? $this->timeout;
 		$this->options = static::optionsMerge($this->options, $options);

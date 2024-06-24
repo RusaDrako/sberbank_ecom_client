@@ -97,7 +97,11 @@ class Action extends Item{
 			$this->_options = array_merge($this->_options, $this->_parent->getOptions());
 			$this->optionsForJSON = $this->_options;
 		} else {
-			$this->_options = Client::optionsMerge($this->_options, $this->_parent->getOptions());
+			$addOptions=[];
+			if(!in_array($this->actionName, ['set-permanent-password'])){
+				$addOptions=$this->_parent->getOptions();
+			}
+			$this->_options = Client::optionsMerge($this->_options, $addOptions);
 			$this->validateOptions();
 			$this->formatOptions();
 		}

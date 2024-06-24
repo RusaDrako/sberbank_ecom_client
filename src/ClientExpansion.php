@@ -512,11 +512,14 @@ class ClientExpansion extends Client{
 	 */
 	public function setPermanentPassword(string $login, string $tmpPassword, string $password): array
 	{
-		return $this->_getResponseForAction('paymentOrderBinding.do', [
+		$requiredDate = [
 			'login' => $login,
 			'tmpPassword' => $tmpPassword,
-			'password' => $password,
-		], []);
+		];
+		if($password){
+			$requiredDate['password'] = $password;
+		}
+		return $this->_getResponseForAction('set-permanent-password', $requiredDate, []);
 	}
 
 }
