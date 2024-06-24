@@ -1172,7 +1172,7 @@ paths:
                       {name: productID, value: "10"},
                       {name: productType, value: INSTALLMENT},
                       {name: term, value: "12"},
-                      {name: initialAmount, 500000}]
+                      {name: initialAmount, value: 500000}]
                     cardAuthInfo:
                       secureAuthInfo:
                         threeDSInfo:
@@ -3007,7 +3007,7 @@ components:
       type: string
       maxLength: 36
       minLength: 1
-      pattern: [\w^"\/|#$%;'<>=*]
+      pattern: &#91;\w^"\/|#$%;'<>=*&#93;
       example: e2574f1785324f1592d9029cb05adbbd
 
     amount:
