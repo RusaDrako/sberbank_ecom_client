@@ -501,6 +501,24 @@ class ClientExpansion extends Client{
 		//return $this->execute($this->prefixSbpQr . 'status.do', $data);
 	}
 
+	/**
+	 * Change the temp password.
+	 *
+	 * @param int|string $login         Login
+	 * @param string     $tmpPassword   Temp Password
+	 * @param array      $password      New password
+	 *
+	 * @return array A server's response
+	 */
+	public function setPermanentPassword(string $login, string $tmpPassword, string $password): array
+	{
+		return $this->_getResponseForAction('paymentOrderBinding.do', [
+			'login' => $login,
+			'tmpPassword' => $tmpPassword,
+			'password' => $password,
+		], []);
+	}
+
 }
 
 class ExceptionClientExpansion extends ExceptionClient {}
